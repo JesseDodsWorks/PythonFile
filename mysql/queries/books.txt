@@ -1,0 +1,45 @@
+INSERT INTO authors (first_name, last_name)
+VALUE ("Jane","Austen"), ("Emily","Dickinson"), ("Fyodor","Dostoevsky"),
+("William","Shakespeare"), ("Lau","Tzu");
+
+INSERT INTO books (title)
+VALUE ("C Sharp"), ("Java"), ("Python"), ("PHP"), ("Ruby");
+
+UPDATE books SET title = "C#"
+WHERE books.id = 1;
+
+UPDATE authors SET first_name = "Bill"
+WHERE authors.id = 4
+
+INSERT INTO favorites (authors_id, books_id)
+VALUES (1, 1), (1, 2);
+
+INSERT INTO favorites (authors_id, books_id)
+VALUES (2, 1), (2, 2), (2, 3);
+
+INSERT INTO favorites (authors_id, books_id)
+VALUES (3, 1), (3, 2), (3, 3), (3, 4);
+
+INSERT INTO favorites (authors_id, books_id)
+VALUES (4, 1), (4, 2), (4, 3), (4, 4), (4, 5);
+
+SELECT authors.first_name AS author, books.title AS books FROM authors
+JOIN favorites ON authors.id = favorites.authors_id
+JOIN books ON books.id = favorites.books_id
+WHERE books.id = 3;
+
+DELETE FROM favorites
+WHERE authors_id = 2 AND books_id = 3;
+
+INSERT INTO favorites (authors_id, books_id)
+VALUE (5, 2);
+
+SELECT authors.first_name AS author, books.title AS books FROM authors
+JOIN favorites ON authors.id = favorites.authors_id
+JOIN books ON books.id = favorites.books_id
+WHERE authors.id = 3;
+
+SELECT authors.first_name AS author, books.title AS books FROM authors
+JOIN favorites ON authors.id = favorites.authors_id
+JOIN books ON books.id = favorites.books_id
+WHERE books.id = 5;

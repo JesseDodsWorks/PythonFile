@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/CSS/styles.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='/Scripts/script.js') }}"></script>
+    <title>Document</title>
+</head>
+<body>
+    <!-- <h2>{{phrase}}</h2> -->
+
+    <table class="container">
+        {% for i in range(0, Y) %} <!-- CREATES THE COLUMN LENGTH *HOW MANY ROWS WE"LL HAVE-->
+        <tr>
+            {% if i%2 == 0 %}
+                {% for j in range(0, X) %}  <!-- CREATES THE ROW LENGTH *HOW MANY INSTANCES WE"LL HAVE-->
+                    {% if j%2 == 0 %}
+                        <td class="square first"></td>
+                    {% else %}
+                        <td class="square second"></td>
+                    {% endif %}
+                {% endfor %}
+
+            {% else %}
+                {% for j in range(0, X) %}
+                    {% if j%2 == 0 %}
+                        <td class="square second"></td>
+                    {% else %}
+                        <td class="square first"></td>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>
