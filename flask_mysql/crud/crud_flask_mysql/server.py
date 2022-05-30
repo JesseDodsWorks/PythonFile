@@ -1,31 +1,43 @@
-from flask import Flask, render_template, redirect, request, session  # Import Flask to allow us to create our app
-from friend import Friend
-app = Flask(__name__)    # Create a new instance of the Flask class called "app"
+from flask import Flask, render_template, request, redirect
+from user import User
+
+app = Flask(__name__) #Creates our app. it's an instance from our earlier python projects
+app.secret_key = 'keep me secret, keep me safe'
 
 @app.route("/")
-def index():
-    # call the get all classmethod to get all users
-    users = Friend.get_all()
-    print(users)
-    return render_template("index.html", all_users = users)
+def show_data():
+    users = User.get_rows() #creates a value, get to the return from the get_all def in User.py
+    print(users) #prints the returned information inside the users value
+    return render_template("read.html", all_users = users) #pops the index.html page and 
 
-@app.route('/create_friend', methods=["POST"])
-def create_friend():
-    # First we make a data dictionary from our request.form coming from our template.
-    # The keys in data need to line up exactly with the variables in our query string.
+
+@app.route("/create")
+def index():
+    return render_template("create.html") #pops the index.html page and 
+
+# allows us to add a user to the DB user_entry by pulling info from our form in index.html
+# assigning them to a value in data, then passing the info AGAIN into the class method save
+# in the User class inside user.py
+@app.route("/add_user", methods=["POST"])
+def add_user():
     data = {
-        "fname": request.form["fname"],
-        "lname" : request.form["lname"],
+        "first_name" : request.form["first_name"],
+        "last_name" : request.form["last_name"],
         "email" : request.form["email"]
     }
-    # We pass the data dictionary into the save method from the Friend class.
-    Friend.save(data)
-    # Don't forget to redirect after saving to the database.
-    return redirect('/')
+# this guy goe to our class User, to our save def, which adds(saves) our entered data from the form
+    User.save(data)
+    return redirect("/")
+
+
+
+
+
+
+
 
 
 
 
 if __name__=="__main__":   # Ensure this file is being run directly and not from a different module    
     app.run(debug=True)    # Run the app in debug mode.
-

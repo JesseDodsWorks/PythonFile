@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <title>Create</title>
+</head>
+<body class="container">
+    <h2>Add a User</h2>
+
+    <form action="/add_user" method="post">
+
+        <label class="form-group" for="first_name">First Name:</label>
+        <input class="form-control" type="text" name="first_name">
+
+        <label class="form-group" for="last_name">Last Name:</label>
+        <input class="form-control" type="text" name="last_name">
+
+        <label class="form-group" for="email">Email:</label>
+        <input class="form-control" type="text" name="email">
+        
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

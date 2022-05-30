@@ -6,7 +6,7 @@ app = Flask(__name__)    # Create a new instance of the Flask class called "app"
 def index():
     # call the get all classmethod to get all friends
     friends = Friend.get_all()
-    print(friends)
+    # print(friends)
     return render_template("index.html", all_friends = friends)
 
 @app.route('/create_friend', methods=["POST"])
