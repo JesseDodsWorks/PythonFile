@@ -10,10 +10,21 @@ def show_data():
     print(users) #prints the returned information inside the users value
     return render_template("read.html", all_users = users) #pops the index.html page and 
 
-
 @app.route("/create")
-def index():
-    return render_template("create.html") #pops the index.html page and 
+def create():
+    return render_template("create.html") #pops the index.html page
+
+@app.route("/show")
+def show():
+    return render_template("show.html") #pops the index.html page
+
+@app.route("/edit")
+def edit():
+    return render_template("edit.html") #pops the index.html page
+
+
+
+# REDIRECTS BELOW POINT
 
 # allows us to add a user to the DB user_entry by pulling info from our form in index.html
 # assigning them to a value in data, then passing the info AGAIN into the class method save
