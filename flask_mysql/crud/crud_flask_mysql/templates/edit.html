@@ -8,23 +8,26 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
     <title>edit</title>
 </head>
-<body class="container">
-    <h2>Edit User X</h2>
+<body class="container p-3 my-3 bg-primary text-white bg-secondary text-white">
+
+    <h2>Edit user {{user.id}}</h2>
     <a class="btn btn-info" href="/">Home</a>
 
-    <!-- Currently has the add_user tag. REPLACE WITH CORRECT TAG -->
-    <form action="/add_user" method="post">
+    <!--  -->
+    <form action="/update_edit" method="post">
+
+        <input type="hidden" name="id" value={{user.id}}>
 
         <label class="form-group" for="first_name">First Name:</label>
-        <input class="form-control" type="text" name="first_name">
+        <input class="form-control" type="text" name="first_name" value="{{user.first_name}}">
 
         <label class="form-group" for="last_name">Last Name:</label>
-        <input class="form-control" type="text" name="last_name">
+        <input class="form-control" type="text" name="last_name" value="{{user.last_name}}">
 
         <label class="form-group" for="email">Email:</label>
-        <input class="form-control" type="text" name="email">
+        <input class="form-control" type="text" name="email" value="{{user.email}}">
         
-        <input type="submit" value="Update"> <a href="/show">Show User</a>
+        <input type="submit" value="Update"> <a href="/select_one/{{user.id}}">Show User</a>
     </form>
 </body>
 </html>

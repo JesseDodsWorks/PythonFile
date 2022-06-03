@@ -8,17 +8,17 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
     <title>show</title>
 </head>
-<body class="container">
-    <h2>User X</h2>
+<body class="container p-3 my-3 bg-primary text-white bg-secondary text-white">
+    <h2>User {{user.id}}</h2>
     <a class="btn btn-info" href="/">Home</a>
 
     <div>
-        <p>First Name: X + Y</p>
-        <p>Email: Z.net</p>
-        <p>Created On: DateOnly</p>
-        <p>Last Updated On: FULL DATETIME</p>
+        <p>First Name: {{user.first_name}} {{user.last_name}}</p>
+        <p>Email: {{user.email}}</p>
+        <p>Created On: {{user.create_at.strftime("%b %d %Y")}}</p>
+        <p>Last Updated On: {{user.update_at.strftime("%b %d %Y at %I:%M %p")}}</p>
     </div>
 
-    <a href="/edit">edit</a> | <a href="/delete">delete</a>
+    <a href="/edit_one/{{user.id}}">edit</a> | <a href="/delete_user/{{user.id}}">delete</a>
 </body>
 </html>
