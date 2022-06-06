@@ -1,4 +1,4 @@
-from DN_app.controllers import ninjas
+from DN_app.controllers import dojos, ninjas
 from DN_app import app
 
 

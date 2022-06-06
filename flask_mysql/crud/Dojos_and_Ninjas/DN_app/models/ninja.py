@@ -8,8 +8,12 @@ class Ninja:
         self.age = data["age"]
         self.create_at = data["created_at"]
         self.update_at = data["updated_at"]
-        self.dojo_id = data["dojo.id"]
+        self.dojo_id = data["dojo_id"]
 
 # CLASS METHODS BELOW
 
-    
+    @classmethod
+    def save(cls,data):
+        query = "INSERT INTO ninjas (first_name, last_name, age, dojo_id, created_at, updated_at) VALUES (%(first_name)s, %(last_name)s, %(age)s, %(dojo_id)s, NOW(), NOW() );"
+        print(query)
+        return connectToMySQL('dojos_ninjas').query_db(query,data)

@@ -8,7 +8,29 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
     <title>main_dojo</title>
 </head>
-<body>
+<body class="container">
     <h2>Main Dojo</h2>
+    <hr>
+    <!-- THIS PAGE HAS TWO SIDES -->
+    <!-- SIDE-LEFT requires a form that is just a name addition -->
+    <h3>New Dojo</h3>
+    <form action="/add_dojo" method="post">
+
+        <label for="name">Name:</label>
+        <input type="text" name="name">
+
+        <input type="submit" value="Create">
+
+    </form>
+    <!-- SIDE-RIGHT is a table of <a> that you can select to take you to a it "selected_dojo.html" (it has a table of it's ninjas)-->
+    <h3>All Dojos</h3>
+        <table class="table .table-striped">
+            {% for dojo in dojo_locations %}
+            <tr>
+                <td><a href="/select_dojo">{{dojo.name}}</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    <a class="btn btn-primary" href="/create_ninja">Add Ninja</a>
 </body>
 </html>
