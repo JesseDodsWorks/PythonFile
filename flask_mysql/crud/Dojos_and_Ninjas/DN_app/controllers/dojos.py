@@ -17,6 +17,7 @@ def add_dojo():
     Dojo.save(data)
     return redirect("/")
 
-@app.route("/select_dojo")
-def select_dojo():
-    return render_template ("selected_dojo.html")
+@app.route("/select_dojo/<int:id>")
+def select_dojo(id):
+    data = {"id": id}
+    return render_template('selected_dojo.html', dojo = Dojo.get_one_with_ninjas(data))

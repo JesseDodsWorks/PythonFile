@@ -27,10 +27,11 @@
         <table class="table .table-striped">
             {% for dojo in dojo_locations %}
             <tr>
-                <td><a href="/select_dojo">{{dojo.name}}</a></td>
+                <td><a href="/select_dojo/{{dojo.id}}">{{dojo.name}}</a></td>
             </tr>
             {% endfor %}
         </table>
     <a class="btn btn-primary" href="/create_ninja">Add Ninja</a>
+    
 </body>
 </html>

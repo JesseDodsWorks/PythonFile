@@ -8,12 +8,29 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
     <title>selected_dojo</title>
 </head>
-<body>
-    <h2>X Dojo</h2>
+<body class="container">
+    <h2>{{dojo.name}} Dojo</h2>
 
     <!-- Has a table that will show dojo.name and its ninjas  -->
+    <table class="table .table-striped">
+        <thead>
+            <th>First</th>
+            <th>Last</th>
+            <th>Age</th>
+        </thead>
 
+        <tbody>
+            
+            {% for ninja in dojo.students %}
+            <tr>
+                <td>{{ ninja.first_name }}</td>
+                <td>{{ ninja.last_name }}</td>
+                <td>{{ ninja.age }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     
-
+    <a class="btn btn-primary" href="/">Home</a>
 </body>
 </html>
