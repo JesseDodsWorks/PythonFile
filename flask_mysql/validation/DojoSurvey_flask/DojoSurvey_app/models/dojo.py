@@ -17,11 +17,11 @@ class Dojo:
         query = "SELECT * FROM dojos ORDER BY dojos.id DESC LIMIT 1;"
         print(query)
         results = connectToMySQL("dojo_survey_schema").query_db(query)
-        return Dojo(results[0])
+        return cls(results[0])
 
     @classmethod
     def save(cls,data):
-        query = "INSERT into dojos (name,location,language,comment) VALUES (%(name)s,%(location)s,%(language)s,%(comment)s);"
+        query = "INSERT INTO dojos (name,location,language,comment) VALUES (%(name)s,%(location)s,%(language)s,%(comment)s);"
         print(query)
         return connectToMySQL('dojo_survey_schema').query_db(query,data)
 
