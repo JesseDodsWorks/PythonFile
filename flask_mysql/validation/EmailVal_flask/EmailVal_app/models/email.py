@@ -1,4 +1,4 @@
-from unittest import result
+
 from EmailVal_app.config.mysqlconnection import connectToMySQL
 from flask import flash
 import re
