@@ -14,12 +14,13 @@ def index():
 def show():
     if not "logged_in" in session:
         return redirect ("/")
-
-    return render_template ("show.html")
+    
+    return render_template ("show.html", friends= User.get_friends(session["logged_in"]["id"]))
 
 
 # Doing Routes ##############################
 
+            ###################### validate_register #########################
 @app.route("/validate_register", methods=["POST"])
 def validate_register():
     if not User.validate_reg(request.form):
@@ -46,6 +47,7 @@ def validate_register():
 
     return redirect ("/show")
 
+            ###################### validate_login #########################
 @app.route("/validate_login", methods=["POST"])
 def validate_log():
 
@@ -62,6 +64,8 @@ def validate_log():
 
     return redirect ("/show")
 
+
+            ###################### clear_session #########################
 @app.route("/clear_session")
 def clear_route():
     session.clear()

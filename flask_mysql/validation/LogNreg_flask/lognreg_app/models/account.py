@@ -7,11 +7,11 @@ bcrypt = Bcrypt(app)
 
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9.+_-]+\.[a-zA-Z]+$')
-# PASSWORD_REGEX = 
+ 
 
 
 class User:
-    db = "lognreg_schema"
+    db = "added_messages_schema"
     def __init__(self,data):
         self.id = data["id"]
         self.first_name = data["first_name"]
@@ -38,6 +38,16 @@ class User:
             return False
         return cls(result[0])
 
+    @classmethod
+    def get_friends(cls, id):
+        query = "SELECT * FROM users WHERE id != %(id)s"
+        data = {"id" : id}
+        result = connectToMySQL(cls.db).query_db(query, data)
+        friends = []
+        for friend in result:
+            friends.append(cls(friend))
+        return friends
+        
 
 # STATIC METHODS
     @staticmethod
