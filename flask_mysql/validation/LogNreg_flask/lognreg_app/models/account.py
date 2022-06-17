@@ -7,7 +7,7 @@ bcrypt = Bcrypt(app)
 
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9.+_-]+\.[a-zA-Z]+$')
-
+# PASSWORD_REGEX = 
 
 
 class User:
@@ -44,23 +44,36 @@ class User:
     def validate_reg(user):
         is_valid = True
 
-        if not EMAIL_REGEX.match(user["email"]):
+        ################## NAME CORRECT #####################
+        if user["first_name"] == "" or user["last_name"] == "":
+            flash("Name field(s) can not be blank", "register")
             is_valid = False
-            flash("Invalid Email Address", "register") # CHANGE TO FLASH
+        if  len(user["first_name"]) <= 2 or len(user["last_name"]) <= 2:
+            flash("Name field(s) need to be at longer than 2 characters", "register")
+            is_valid = False
 
+        ################## EMAIL SPELLING #####################
+        if not EMAIL_REGEX.match(user["email"]):
+            flash("Invalid Email Address", "register")
+            is_valid = False
+
+        ################## CORRECT AND COMPARE PASSWORDS #####################
         if user["firstpass"] == "" or user["secondpass"] == "":
             flash("Password field(s) can not be blank", "register")
             is_valid = False
-
+        if  len(user["firstpass"]) <= 8 or len(user["secondpass"]) <= 8:
+            flash("Password field(s) need to be at least 8 characters", "register")
+            is_valid = False
         if user["firstpass"] != user["secondpass"]:
-            flash("Passwords Do Not Match.", "register") # CHANGE TO FLASH
+            flash("Passwords Do Not Match.", "register")
             is_valid=False
 
+        ################### LOOKING FOR SIMILAR EMAIL #####################
         query = "SELECT * FROM users WHERE email = %(email)s;"
         print(query)
         results = connectToMySQL(User.db).query_db(query,user)
         if len(results) >= 1:
-            flash("Email Already Taken.", "register") # CHANGE TO FLASH
+            flash("Email Already Taken.", "register")
             is_valid=False
 
         return is_valid
