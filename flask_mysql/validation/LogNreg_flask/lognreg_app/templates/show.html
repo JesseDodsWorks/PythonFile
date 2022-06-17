@@ -33,15 +33,16 @@
                 <p>Send Messages</p>
                 <hr>
                 <p>You Have sent "X" Messages</p>
-                <form action="#">
-                    <select type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" name="dojo_id">
-                        <option class="dropdown-item" selected>Select Recipient </option>
-                        {% for friend in friends %}    <!-- change to correct jinja -->
-                        <option class="dropdown-item" value="{{ friend.id }}">{{ friend.first_name }}</option>
+                <form action="/send_message" method="post">
+                    <select type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" name="selected_friend_id">
+                        <option class="dropdown-item" selected disabled>Select Recipient </option>
+                        {% for friend in friends %}
+                        <option class="dropdown-item" value="{{ friend.id }}">{{ friend.first_name ~ " " ~ friend.last_name }}</option>
                         {% endfor %}
                     </select>
-                    <textarea name="message" cols="30" rows="5"></textarea>
-                    <button class="btn btn-primary" type="submit">Send</button>
+
+                    <textarea placeholder="What's on your mind..." name="message" cols="30" rows="5" required></textarea>
+                    <button class="btn btn-primary" type="submit" name="action" value="submit">Send</button>
                 </form>
             </div>
         </div>
