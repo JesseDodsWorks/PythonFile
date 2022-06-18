@@ -20,13 +20,60 @@ class Message:
         print(query)
         return connectToMySQL(cls.db).query_db(query, data)
 
+    @classmethod
+    def get_messages(cls, id):
+        query = """
+                    SELECT * 
+                    FROM messages 
+                    JOIN users ON messages.sender_id = users.id 
+                    WHERE messages.recipient_id = %(id)s;
+                """
+        print(query)
+        data = {"id" : id}
+        result = connectToMySQL(cls.db).query_db(query, data)
+        print(result)
+        messages = []
+        for message in result:
+            messages.append(cls(message))
+        return messages
+
+    @classmethod
+    def user_sent_messages(cls, id):
+        query = """
+                    SELECT * 
+                    FROM messages 
+                    WHERE messages.sender_id = %(id)s;
+                """
+        print(query)
+        data = {"id" : id}
+        result = connectToMySQL(cls.db).query_db(query, data)
+        print(result)
+        messages = []
+        for message in result:
+            messages.append(cls(message))
+        return messages
+
+    @classmethod
+    def delete(cls,data):
+        query = "DELETE FROM messages WHERE id = %(id)s;"
+        print(query)
+        return connectToMySQL(cls.db).query_db(query, data)
+
 
 
 
 
 # STATIC METHODS ##################################
 
+    @staticmethod
+    def validate_message(message):
+        is_valid = True
 
+        if len(message["message"]) <=5:
+            flash("Message needs to be longer than 5 characters", "messages")
+            is_valid = False
+
+        return is_valid
 
 
 

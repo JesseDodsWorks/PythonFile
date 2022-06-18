@@ -12,27 +12,28 @@
 </head>
 <body>
     <div class="container border border-primary mx-auto w-50 p-3">
-        <nav class="navbar navbar-expand-sm bg-light justify-content-center">
+        <nav class="navbar navbar-expand-sm bg-light justify-content-between">
             <h2>Welcome back {{ session["logged_in"]["first_name"] }}</h2>
-            <a class="btn btn-primary" href="/clear_session">Sign Out</a>
-            <hr>
+            <a class="btn btn-primary " href="/clear_session">Sign Out</a>
         </nav>
         <div class="row">
             <div class="col">
-                <p>"X" Messages for You</p>
+                <p>{{ messages | length }} Messages for You</p>
                 <hr>
                 <!-- Loop through messages for user -->
-                <p>(time) From (user):</p>
+                {% for message in messages %}
+                <p>{{ message.first_name ~ " from " ~ message.created_at }}</p>
                 <div class="d-inline-flex">
-                    <p>(message from user)</p>
-                    <a href="/hide_message">hide</a>
+                    <p>{{ message.message ~ " -"}}</p>
+                    <a href="/delete_message/{{ message.id }}"> delete</a>
                 </div>
-
+                {% endfor %}
             </div>
+            
             <div class="col">
                 <p>Send Messages</p>
                 <hr>
-                <p>You Have sent "X" Messages</p>
+                <p>You Have sent {{ my_messages | length }} Messages</p>
                 <form action="/send_message" method="post">
                     <select type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" name="selected_friend_id">
                         <option class="dropdown-item" selected disabled>Select Recipient </option>
@@ -41,8 +42,17 @@
                         {% endfor %}
                     </select>
 
+                    {% with messages = get_flashed_messages(category_filter = ["messages"]) %}   
+                    {% if messages %}   
+                    <div class="mx-auto  p-3 my-3 bg-danger text-white ">
+                        {% for message in messages %}
+                            <p>{{message}}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                {% endwith %}
                     <textarea placeholder="What's on your mind..." name="message" cols="30" rows="5" required></textarea>
-                    <button class="btn btn-primary" type="submit" name="action" value="submit">Send</button>
+                    <button class="btn btn-primary" type="submit">Send</button>
                 </form>
             </div>
         </div>

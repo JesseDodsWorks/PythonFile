@@ -2,6 +2,7 @@
 from flask import render_template, redirect, request, session
 from lognreg_app import app
 from lognreg_app.models.account import User
+from lognreg_app.models.message import Message
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 
@@ -16,7 +17,10 @@ def show():
     if not "logged_in" in session:
         return redirect ("/")
     
-    return render_template ("show.html", friends= User.get_friends(session["logged_in"]["id"]))
+    return render_template ("show.html",
+    friends= User.get_friends(session["logged_in"]["id"]),
+    messages = Message.get_messages(session["logged_in"]["id"]), 
+    my_messages = Message.user_sent_messages(session["logged_in"]["id"]))
 
 
 # Doing Routes ##############################
