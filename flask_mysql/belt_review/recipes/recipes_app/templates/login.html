@@ -12,10 +12,41 @@
     <h4>Sign in</h4>
     <div class="row">
         <div class="col border">
-            Register
+            <h4>Register</h4>
+            <form action="/register" method="post">
+                <input type="text" name="first_name" placeholder="first name">
+                <input type="text" name="last_name" placeholder="last name">
+                <input type="text" name="email" placeholder="email">
+                <input type="password" name="password" placeholder="create password">
+                <input type="password" name="confirm" placeholder="confirm password">
+                <button class="btn btn-primary" type="submit">Create</button>
+            </form>
+            {% with messages = get_flashed_messages(category_filter = ["register"]) %}   
+                {% if messages %}   
+                    <div class="mx-auto  p-3 my-3 bg-danger text-white">
+                        {% for message in messages %}
+                            <p>{{message}}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
         </div>
         <div class="col border">
-            Login
+            <h4>Login</h4>
+            <form action="/login" method="post">
+                <input type="text" name="email" placeholder="email">
+                <input type="password" name="password" placeholder="password">
+                <button class="btn btn-primary" type="submit">Login</button>
+            </form>
+            {% with messages = get_flashed_messages(category_filter = ["sign_in"]) %}   
+                {% if messages %}   
+                    <div class="mx-auto  p-3 my-3 bg-danger text-white">
+                        {% for message in messages %}
+                            <p>{{message}}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
         </div>
     </div>
 </body>

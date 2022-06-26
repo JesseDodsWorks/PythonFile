@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show recipe</title>
+</head>
+<body>
+    <div>
+        <h4>Welcome {{ session["logged_in"]["first_name"] }}</h4>
+        <a class="btn btn-primary" href="/logout">Logout</a>
+        <a class="btn btn-primary" href="/dashboard">Dashboard</a>
+    </div>
+
+    <h3> {{ recipe.name }} {{ recipe.held_recipe.first_name }} {{ recipe.held_recipe.last_name }} </h3>
+    <div>
+        <p>description: {{ recipe.description }}</p>
+        <p>instruction: {{ recipe.instruction }}</p>
+        <p>date: {{ recipe.date }}</p>
+        <p>30 minutes or less: {{ recipe.halfhour }}</p>
+    </div>
+
+</body>
+</html>

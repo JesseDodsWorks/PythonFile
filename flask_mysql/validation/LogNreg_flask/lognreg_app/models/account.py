@@ -36,7 +36,7 @@ class User:
         if len(result) < 1:
             return False
         return cls(result[0])
-        
+
     @classmethod
     def get_friends(cls, id):
         query = "SELECT * FROM users WHERE id != %(id)s"
