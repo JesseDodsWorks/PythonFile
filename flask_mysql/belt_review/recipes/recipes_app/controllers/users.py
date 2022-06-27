@@ -7,20 +7,28 @@ from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 
 
-
+#######################################################
+#                 loading start
+#######################################################
 @app.route("/")
 def register_login():
     return render_template ("login.html")
+#######################################################
 
+#######################################################
+#              Getting to Dashboard
+#######################################################
 @app.route("/dashboard")
 def dashboard():
     if not "logged_in" in session:
         return redirect ("/")
 
     return render_template ("dashboard.html", recipes_table = Recipe.get_all_recipes())
+#######################################################
 
-
-#### valid register > save user
+#######################################################
+#            if creating a new account
+#######################################################
 @app.route("/register", methods=["POST"])
 def create_user():  
     if not User.valid_register(request.form):
@@ -44,8 +52,11 @@ def create_user():
         }
 
     return redirect ("/dashboard")
+#######################################################
 
-#### valid login 
+#######################################################
+#                if logging in
+#######################################################
 @app.route("/login", methods=["POST"])
 def sign_in():
     if not User.valid_login(request.form):
@@ -60,12 +71,14 @@ def sign_in():
 
     return redirect ("/dashboard")
 
-### logout
+#######################################################
+#              Getting to Dashboard
+#######################################################
 @app.route("/logout")
 def logout():
     session.clear()
     return redirect ("/")
-
+#######################################################
 
 
 

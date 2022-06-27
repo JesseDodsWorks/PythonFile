@@ -15,6 +15,9 @@
         <a class="btn btn-primary" href="/dashboard">Dashboard</a>
     </div>
     <form action="/add_recipe" method="post">
+
+        <input type="hidden" name="id" value={{None}}>
+
         <input type="text" name="name" placeholder="Recipe Name">
         <textarea name="description" cols="30" rows="10" placeholder="description"></textarea>
         <textarea name="instruction" cols="30" rows="10" placeholder="instructions"></textarea>

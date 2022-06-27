@@ -1,4 +1,3 @@
-from cmath import e
 from recipes_app.config.mysqlconnection import connectToMySQL
 from recipes_app import app
 from recipes_app.models import user
@@ -24,14 +23,20 @@ class Recipe:
         self.held_recipe = None
 
 
-
+#######################################################
+#                       save
+#######################################################
     @classmethod
     def save_recipe(cls, data):
         query = """INSERT INTO recipes (name, description, instruction, date, halfhour, user_id, created_at, updated_at)
         VALUES (%(name)s, %(description)s, %(instruction)s, %(date)s, %(halfhour)s, %(user_id)s, NOW(), NOW());
         """
         return connectToMySQL(cls.db).query_db(query, data) 
+######################################################
 
+#######################################################
+#                   get "all"
+#######################################################
     @classmethod
     def get_all_recipes(cls):
         query = """SELECT *
@@ -57,7 +62,11 @@ class Recipe:
             all_recipes.append(new_recipe)
 
         return all_recipes
+######################################################
 
+#######################################################
+#                   get "one"
+#######################################################
     @classmethod
     def get_a_recipe(cls,data):
         query = """SELECT *
@@ -81,8 +90,11 @@ class Recipe:
         main.held_recipe = user.User(data)
         print(main)
         return main
+#######################################################
 
-
+#######################################################
+#                      Update
+#######################################################
     @classmethod
     def update_recipe(cls, data):
         query = """UPDATE recipes
@@ -90,15 +102,22 @@ class Recipe:
         WHERE recipes.id = %(id)s;
         """
         return connectToMySQL(cls.db).query_db(query, data)
+#######################################################
 
+#######################################################
+#                      delete
+#######################################################
     @classmethod
     def delete_recipe(cls, data):
         query = """DELETE FROM recipes
         WHERE recipes.id = %(id)s;
         """
         return connectToMySQL(cls.db).query_db(query, data)
+#######################################################
 
-
+#######################################################
+#                 validate recipe
+#######################################################
     @staticmethod
     def valid_recipe(data):
         is_valid = True
@@ -109,26 +128,32 @@ class Recipe:
         if data["name"] == "":
             flash("name is required", "recipe")
             is_valid = False
-        if len(data["name"]) <2:
+        if len(data["name"]) <=2:
             flash("recipe name is not long enough, more than 2", "recipe")
             is_valid = False
         
         if data["description"] == "":
             flash("description is required", "recipe")
             is_valid = False
-        if len(data["description"]) <= 15:
+        if len(data["description"]) <= 14:
             flash("recipe description needs a minimum of 15 characters", "recipe")
             is_valid = False
         
         if data["instruction"] == "":
             flash("instructions is required", "recipe")
             is_valid = False
-        if len(data["instruction"]) <= 15:
+        if len(data["instruction"]) <= 14:
             flash("recipe instruction needs a minimum of 15 characters", "recipe")
             is_valid = False
 
-        return is_valid
+        # if everything is good till point, check if the correct amount of items was passed, halfhour will be missing if not clicked
+        if is_valid == True:
+            if not len(data) == 6:
+                flash("Yes or No option is required", "recipe")
+                is_valid = False
 
+        return is_valid
+#######################################################
 
 
 
